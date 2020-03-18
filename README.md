@@ -57,7 +57,7 @@ A: Kind of. Needs testing, but I use more than 70% of it in production environme
 git clone git@github.com:calinrada/covid.git \
   && cd covid \
   && cp .env.dist .env \
-  && db.env.dist db.env
+  && cp db.env.dist db.env
 ```
 
 ## Configuration
