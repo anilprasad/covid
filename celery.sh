@@ -1,0 +1,1 @@
+celery -A source worker -l info

@@ -1,0 +1,26 @@
+{% load thumbnail %}
+<div class="file-input-holder">
+    <input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+    {% if widget.is_initial %}<small class="text-muted text-small">{{ widget.input_text }}</small>{% endif %}
+</div>
+{% if widget.is_initial %}
+<div class="mt-2 file-input-edit-holder">
+    {% if widget.value.height %}
+        {% thumbnail widget.value "128" crop="center" as im %}
+            <a href="{{ widget.value.url }}" data-fancybox="gallery">
+                <img src="{{ im.url }}">
+            </a>
+        {% endthumbnail %}
+    {% else %}
+    {{ widget.initial_text }}: <a href="{{ widget.value.url }}">{{ widget.value }}</a>
+    {% endif %}
+    {% if not widget.required %}
+    <div>
+        <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}">
+        <label for="{{ widget.checkbox_id }}">{{ widget.clear_checkbox_label }}</label>
+    </div>
+    {% endif %}
+
+</div>
+{% endif %}
+

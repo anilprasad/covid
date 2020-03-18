@@ -1,0 +1,97 @@
+{% load i18n static hreflang compress %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% hreflang_tags %}
+
+    <link rel="icon" href="{% static 'assets/favicons/favicon.ico' %}">
+
+    <title>{% block meta_title %}{{ APP_NAME }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{{ APP_NAME }}{% endblock %}">
+    <meta name="author" content="covid.social">
+
+    <meta property="og:site_name" content="covid.social" />
+    <meta property="og:locale" content="en_US" />
+    {% block og_meta %}
+    <meta property="og:url" content="https://covid.social" />
+    <meta property="og:title" content="Coronavirus COVID-19 World Map" />
+    <meta property="og:description" content="Coronavirus COVID-19 Global Cases by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University (JHU)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://covid.social/covid_map.png" />
+    {% endblock%}
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
+    {% compress css %}
+    <link href="{% static 'assets/frontend/dist/app.min.css' %}?v={{ASSETS_VERSION}}" rel="stylesheet" type="text/css" />
+    {% block styles %}{% endblock %}
+
+    {% if not APP_DEBUG %}
+    {% include 'shared/ga.html' %}
+    {% endif %}
+
+    {% endcompress %}
+  </head>
+
+  <body class="{% block body_class %}{% endblock %}">
+
+    {% include "shared/navbar.top.html" %}
+
+    {% block content %}{% endblock %}
+
+    {% block pre_javascripts %}{% endblock %}
+
+    <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
+    {% compress js %}
+    <script src="{% static 'assets/frontend/dist/vendor.min.js' %}?v={{ASSETS_VERSION}}"></script>
+    <script src="{% static 'assets/frontend/dist/moment.min.js' %}?v={{ASSETS_VERSION}}"></script>
+    <script src="{% static 'assets/frontend/dist/app.min.js' %}?v={{ASSETS_VERSION}}"></script>
+    {% endcompress %}
+    {% block javascripts %}{% endblock %}
+    {% compress js %}
+    <script type="text/javascript">
+    var app;
+    var init = function () {
+        app = new $.app({
+            i18n: {},
+            app: {
+                api: {
+                    url: '/api/v1',
+                    csrf_token: '{{ csrf_token }}',
+                    token: '{% if request.user.is_authenticated %}{{ request.user.token }}{% endif %}'
+                },
+                routing: {
+                    'home': '{% url 'home' %}',
+                },
+                debug: '{{ APP_DEBUG }}',
+                timezone: 'UTC',
+                locale: '{{ request.LANGUAGE_CODE }}',
+                userIsAuthenticated: {{request.user.is_authenticated|lower}}
+            },
+            rev: "1.0"
+        });
+
+        window.app = app;
+        document.app = app;
+
+        app.ready();
+    };
+
+    $(function(){
+
+      init();
+
+      $(document).on("app:ready", function() {
+        {% if messages %}
+            {% for message in messages %}
+        app.alert('{% if message.tags %}{{message.tags}}{% else %}info{% endif %}', '{{APP_NAME}}', '{{ message }}', 5000)
+            {% endfor %}
+        {% endif %}
+      });
+
+    });
+    </script>
+  {% endcompress %}
+  </body>
+</html>

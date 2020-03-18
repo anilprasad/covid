@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% load i18n %}
+{% block page_title %}
+    {% blocktrans with app_name=APP_NAME %}Sign up for a {{ app_name }} account{% endblocktrans %}
+{% endblock %}
+{% block body_class %}single-form signup{% endblock %}
+{% block content %}
+
+<div class="container h-100">
+    <div class="row align-items-center h-100">
+        <div class="col-10 offset-1 col-md-4 offset-md-4 ">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center text-white">
+                        <h2>{% blocktrans with app_name=APP_NAME %}First time on {{app_name}}?{% endblocktrans %}</h2>
+                        <p>{% blocktrans with app_name=APP_NAME %}Sign up for {{app_name}}?{% endblocktrans %}</p>
+                    </div>
+                    {% include "account/forms/form.signup.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

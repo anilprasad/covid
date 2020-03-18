@@ -1,0 +1,16 @@
+{% extends 'errors/layout.html' %}
+{% block page_title %}Error 500{% endblock %}
+{% block bg_color %}#78909c{% endblock %}
+{% block text_color %}#fefefe{% endblock %}
+{% block content %}
+<div class="error-middle">
+        <h1>Error 500 - Internal Server Error</h1>
+        <p>
+            The 500 (Internal Server Error) status code indicates that the server encountered an unexpected
+            condition that prevented it from fulfilling the request.
+        </p>
+        <p>
+            Try to reload this page now or later.
+        </p>
+</div>
+{% endblock %}

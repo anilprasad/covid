@@ -1,0 +1,14 @@
+import os
+
+CELERY_BROKER_URL = os.environ.get('APP_CELERY_BROKER_URL', 'amqp://username:password@192.168.33.11:5672/vhost')
+CELERY_TASK_SERIALIZER = 'pickle'
+CELERY_RESULT_SERIALIZER = 'pickle'
+CELERY_ACCEPT_CONTENT = ['pickle']
+
+CELERY_REDIS_DB = os.environ.get('APP_CELERY_REDIS_DB')
+CELERY_REDIS_HOST = os.environ.get('APP_CELERY_REDIS_HOST')
+# CELERY_REDIS_PASSWORD = redis_password
+CELERY_REDIS_PORT = os.environ.get('APP_CELERY_REDIS_PORT')
+
+CELERY_RESULT_BACKEND = os.environ.get('APP_CELERY_RESULT_BACKEND')
+

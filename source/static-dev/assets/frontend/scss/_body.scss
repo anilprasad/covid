@@ -1,0 +1,13 @@
+body {
+    &.single-form {
+
+    }
+    &.login,
+    &.signup,
+    &.password-reset,
+    &.password-change {
+        .card {
+            background-color: rgba(0,0,0, 0.5)
+        }
+    }
+}

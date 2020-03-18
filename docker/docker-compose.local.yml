@@ -1,0 +1,101 @@
+version: "3.7"
+
+services:
+  app:
+    image: calinrada/covid
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+      args:
+        tag: local
+    hostname: app_local
+    container_name: covid-app
+    user: "1000:1000"
+    ports:
+      - 8080:8080
+    volumes:
+      - ../:/app
+    depends_on:
+     - db
+    networks:
+      - covid_webnet
+
+  redis:
+    image: redis:5.0.4
+    restart: always
+    hostname: redis
+    container_name: covid-redis
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - covid_redis_data:/data
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - covid_webnet
+
+  rabbitmq:
+    image: rabbitmq:3.7-management
+    restart: always
+    hostname: rabbitmq
+    container_name: covid-rabbitmq
+    volumes:
+      - covid_rabbitmq_data:/var/lib/rabbitmq
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - covid_webnet
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.7.1
+    restart: always
+    hostname: elasticsearch
+    container_name: covid-es
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - covid_elasticsearch_data:/usr/share/elasticsearch/data
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - covid_webnet
+
+  db:
+    image: calinrada/postgresql-zombodb:10.7-10-1.0.3-postgis
+    restart: always
+    hostname: db
+    container_name: covid-db
+    networks:
+      - covid_webnet
+    volumes:
+      - covid_postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ../db.env
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    container_name: covid-mailcatcher
+    ports:
+      - "1080:1080"
+    hostname: mailcatcher
+    networks:
+      - covid_webnet
+
+networks:
+  covid_webnet:
+    driver: bridge
+
+volumes:
+    covid_postgres_data:
+      external: true
+    covid_redis_data:
+      external: true
+    covid_rabbitmq_data:
+      external: true
+    covid_elasticsearch_data:
+      external: true

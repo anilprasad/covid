@@ -1,0 +1,23 @@
+@import "settings";
+@import "../../../../../node_modules/bootstrap/scss/bootstrap";
+@import "maps/arcgis";
+@import "body";
+
+/* Application */
+body, html {
+    height: calc(100% - 51.88px);
+}
+body {
+  padding-top: 5rem;
+}
+
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.errorlist {
+    list-style-type: none;
+    color: $danger;
+    padding: 0;
+}
