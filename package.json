@@ -11,7 +11,7 @@
     "bootstrap": "^4.3.1",
     "dropzone": "^5.5.1",
     "fancybox": "^3.0.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.0",
     "localforage": "^1.7.3",
     "mmenu-js": "^8.1.1",
     "moment": "^2.22.2",
