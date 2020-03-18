@@ -18,4 +18,5 @@ source/static-dev/assets/yarn.lock
 source/static-dev/assets/frontend/dist
 celerybeat-schedule.db
 celerybeat.pid
-
+Capfile
+cap

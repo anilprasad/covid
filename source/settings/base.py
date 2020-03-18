@@ -275,6 +275,7 @@ if APP_USE_S3_STORAGE == '1':
     # Static file config to be used with AWS S3
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     COMPRESS_STORAGE = 'source.s3utils.CachedS3BotoStorage'
+    COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
 
     STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_S3_STATICFILES_LOCATION)
     MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_S3_MEDIAFILES_LOCATION)
