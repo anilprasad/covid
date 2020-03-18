@@ -1,4 +1,4 @@
-# Coronavirus CoVid-19 Utility Platform (https://covid.social)
+# Coronavirus CoVid-19 Social Platform (https://covid.social)
 
 THIS IS NOT AN OFFICIAL GOVERNMENT WEBSITE AND IT IS NOT INTENDED TO OFFER HELP IN CASE
 OF EMERGENCY ! (AT LEAST NOT YET !)
