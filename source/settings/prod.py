@@ -1,7 +1,7 @@
 from .base import *
 
 DEBUG = False
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['covid.social']
 
 # Compressor
 COMPRESS_ENABLED = True
