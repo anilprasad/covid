@@ -2,7 +2,7 @@
 {% block content %}
 <main role="main" class="container">
 
-    <div class="starter-template">
+    <div class="starter-template card">
         <h1>Coronavirus CoVid-19 Social Platform</h1>
         <p class="lead">
             Welcome to covid.social<br />
@@ -13,28 +13,28 @@
         </p>
     </div>
 
-    <div class="row">
-        <div class="col-12 text-center">
-            <h1>Coronavirus Covid-19 Worldwide Maps</h1>
-            <hr />
+    <div class="card mt-4">
+        <div class="card-header">
+            Coronavirus Covid-19 Worldwide Maps
         </div>
-    </div>
-
-    <div class="row">
-        {% for map in maps %}
-            <div class="col-6 col-md-6 col-lg-2 arcgis-cta">
-                <a href="{% url 'map_arcgis' country=map.slug %}" class="map-link">
-                    <div class="map-icon"><i class="fas fa-map"></i></div>
-                    <div class="map-location-name">
-                        {{ map.name }}
+        <div class="card-body">
+            <div class="row">
+                {% for map in maps %}
+                    <div class="col-6 col-md-6 col-lg-3 arcgis-cta">
+                        <a href="{% url 'map_arcgis' country=map.slug %}" class="map-link">
+                            <div class="map-icon"><i class="fas fa-map"></i></div>
+                            <div class="map-location-name">
+                                {{ map.name }}
+                            </div>
+                        </a>
                     </div>
-                </a>
+                {% empty %}
+                <div class="col-12">
+                    There are no maps added yet.
+                </div>
+                {% endfor %}
             </div>
-        {% empty %}
-        <div class="col-12">
-            There are no maps added yet.
         </div>
-        {% endfor %}
     </div>
 
 </main><!-- /.container -->

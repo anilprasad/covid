@@ -1,5 +1,6 @@
 @import "settings";
 @import "../../../../../node_modules/bootstrap/scss/bootstrap";
+@import "navbar_top";
 @import "maps/arcgis";
 @import "body";
 
@@ -7,6 +8,7 @@
 body, html {
     height: calc(100% - 51.88px);
 }
+
 body {
   padding-top: 5rem;
 }

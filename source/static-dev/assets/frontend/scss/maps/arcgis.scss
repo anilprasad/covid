@@ -19,24 +19,24 @@
     text-align: center;
 
     .map-link {
-        color: #FFFFFF;
+        color: #2C2C2C;
 
         .map-icon {
             font-size: 2.5rem;
         }
 
         .map-location-name {
-            font-size: 2rem;
+            font-size: 1.6rem;
             font-weight: 100;
             margin-bottom: 15px;
 
             @media (max-width: 640px) {
-                font-size: 1.6rem;
+                font-size: 1.3rem;
             }
         }
 
         &:hover {
-            color: #cc1111;
+            color: #222222;
             text-decoration: none;
         }
     }
