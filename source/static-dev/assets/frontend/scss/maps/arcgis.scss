@@ -14,3 +14,20 @@
         z-index: 1;
     }
 }
+
+.arcgis-cta {
+    text-align: center;
+
+    .map-link {
+        color: #FFFFFF;
+
+        .map-icon {
+            font-size: 2.5rem;
+        }
+
+        .map-location-name {
+            font-size: 2rem;
+            font-weight: 100;
+        }
+    }
+}

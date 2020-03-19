@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+
+{% block meta_title %}
+{% blocktrans trimmed context 'Page title' with country=map.name %}
+    Coronavirus COVID-19 {{country}} Map
+{% endblocktrans %}
+{% endblock %}
+
+{% block content %}
+<iframe src="{{ map.url }}" class="arcgis world"></iframe>
+{% endblock %}

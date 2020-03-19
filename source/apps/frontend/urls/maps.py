@@ -1,10 +1,8 @@
 from django.urls import re_path
 
-from source.apps.frontend.views.maps.world import WorldMapView
-from source.apps.frontend.views.maps.romania import RomaniaMapView
+from source.apps.frontend.views.maps.arcgis import ArcgisMapView
 
 
 urlpatterns = [
-    re_path(r'^world$', WorldMapView.as_view(), name='map_world'),
-    re_path(r'^romania$', RomaniaMapView.as_view(), name='map_romania'),
+    re_path(r'^arcgis/(?P<country>[\w-]+)$', ArcgisMapView.as_view(), name='map_arcgis'),
 ]
