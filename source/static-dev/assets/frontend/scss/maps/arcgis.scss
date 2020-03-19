@@ -28,6 +28,12 @@
         .map-location-name {
             font-size: 2rem;
             font-weight: 100;
+            margin-bottom: 15px;
+        }
+
+        &:hover {
+            color: #cc1111;
+            text-decoration: none;
         }
     }
 }
