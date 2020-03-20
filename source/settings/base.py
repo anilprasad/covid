@@ -101,6 +101,7 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     'source.apps.hreflang',
+    'source.apps.inlinecss',
     'source.apps.core',
     'source.apps.api',
     'source.apps.frontend',

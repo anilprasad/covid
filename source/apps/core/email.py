@@ -1,7 +1,13 @@
 import os
+import logging
+
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.conf import settings
+
+from source.apps.core.models.email import EmailLogModel
+
+logger = logging.getLogger(__name__)
 
 
 def send_email(**kwargs):
@@ -11,7 +17,7 @@ def send_email(**kwargs):
     data = kwargs.get('data', {})
     to = kwargs.get('to')
     subject = kwargs.get('subject')
-    from_email = os.environ.get('APP_DEFAULT_FROM_EMAIL')
+    from_email = kwargs.get('sender', os.environ.get('APP_DEFAULT_FROM_EMAIL'))
 
     if 'public_url' not in data:
         data['public_url'] = settings.APP_FRONTEND_URL
@@ -40,6 +46,31 @@ def send_email(**kwargs):
     )
     msg.attach_alternative(html_content, "text/html")
 
-    send_status = msg.send()
+    sending_status = msg.send()
 
-    return send_status
+    log_email(**{
+        'sender': from_email,
+        'recipient': to,
+        'subject': subject,
+        'body': html_content,
+        'status': EmailLogModel.STATUS_SENT if sending_status != 0 else EmailLogModel.STATUS_NOT_SENT
+    })
+
+    return sending_status
+
+
+def log_email(**kwargs):
+    try:
+        instance, created = EmailLogModel.objects.get_or_create(
+            sender=kwargs.get('sender'),
+            recipient=','.join(kwargs.get('recipient')),
+            subject=kwargs.get('subject'),
+            body=kwargs.get('body')
+        )
+
+        instance.status = kwargs.get('status')
+        instance.save(update_fields=['status'])
+
+    except Exception as e:
+        logger.error(str(e))
+

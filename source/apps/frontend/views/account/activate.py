@@ -25,7 +25,7 @@ class ActivateView(View):
             user.is_active = True
             user.profile.email_confirmed = True
             user.save()
-            login(request, user, backend='source.apps.user.backends.AuthBackend')
+            login(request, user, backend='source.apps.core.backends.user.backends.AuthBackend')
             messages.add_message(request, messages.SUCCESS, _('Your account has been successfully activated.'))
             return redirect('home')
         else:

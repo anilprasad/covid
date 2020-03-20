@@ -9,8 +9,9 @@ body {
     &.signup,
     &.password-reset,
     &.password-change {
+        background-color: #fff;
         .card {
-            background-color: rgba(0,0,0, 0.5)
+            background-color: rgba(0,0,0, 0.45)
         }
     }
 }
