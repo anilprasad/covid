@@ -7,6 +7,14 @@
 {% endblocktrans %}
 {% endblock %}
 
+{% block og_meta %}
+<meta property="og:url" content="{{ APP_FRONTEND_URL }}{{ map.get_absolute_url }}" />
+<meta property="og:title" content="{% blocktrans trimmed context 'Page title' with country=map.name %}Coronavirus COVID-19 {{country}} Map{% endblocktrans %}" />
+<meta property="og:description" content="{% trans 'Coronavirus COVID-19 Global Cases. Check our website for more information.' %}" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="{{ map.image.url|default:'https://cdn1.covid.social/media/73867c7e-ad8a-46cc-97a7-4f7ae1cf7e1e.png' }}" />
+{% endblock%}
+
 {% block content %}
 <iframe src="{{ map.url }}" class="arcgis world"></iframe>
 {% endblock %}
