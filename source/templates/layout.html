@@ -79,17 +79,16 @@
     };
 
     $(function(){
+        init();
+    });
 
-      init();
-
-      $(document).on("app:ready", function() {
+    $(document).on("app:ready", function() {
         {% if messages %}
-            {% for message in messages %}
-        app.alert('{% if message.tags %}{{message.tags}}{% else %}info{% endif %}', '{{APP_NAME}}', '{{ message }}', 5000)
-            {% endfor %}
+        {% for message in messages %}
+        app.alert.queue('{% if message.tags %}{{message.tags}}{% else %}info{% endif %}', '{{APP_NAME}}', '{{ message|safe }}', 50000)
+        {% endfor %}
+        app.alert.trigger();
         {% endif %}
-      });
-
     });
     </script>
   {% endcompress %}
