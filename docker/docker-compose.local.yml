@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   app:
-    image: calinrada/covid
+    image: &app calinrada/covid
     build:
       context: ../
       dockerfile: docker/Dockerfile
@@ -16,7 +16,27 @@ services:
     volumes:
       - ../:/app
     depends_on:
-     - db
+      - db
+      - redis
+      - rabbitmq
+    networks:
+      - covid_webnet
+
+  celery:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    image: *app
+    command: celery -A source worker -l info
+    container_name: covid-celery
+    environment:
+      - C_FORCE_ROOT=true
+    volumes:
+      - ../:/app
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
     networks:
       - covid_webnet
 

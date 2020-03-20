@@ -37,18 +37,6 @@ class SignupForm(UserCreationForm):
         'password_mismatch': _("The two password fields didn't match."),
     }
 
-    username = forms.CharField(
-        max_length=32,
-        help_text=_('Please type a valid username.'),
-        widget=forms.TextInput(
-            attrs={
-                'autofocus': True,
-                'class': 'form-control form-control-lg',
-                'placeholder': _('Username'),
-            }
-        ),
-    )
-
     email = forms.EmailField(
         max_length=254,
         help_text=_('Please type a valid email address.'),
@@ -87,7 +75,7 @@ class SignupForm(UserCreationForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'email', 'password1', 'password2', )
+        fields = ('email', 'password1', 'password2', )
 
 
 class PasswordResetForm(PasswordResetForm):

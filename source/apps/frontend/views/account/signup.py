@@ -33,6 +33,7 @@ class SignupView(View):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
+
             current_site = get_current_site(request)
             subject = _('Activate your %(app_name)s account') % {'app_name': settings.APP_NAME}
             message = render_to_string('email/account/account_activation.html', {
@@ -46,7 +47,7 @@ class SignupView(View):
             messages.add_message(
                 request,
                 messages.INFO,
-                _('Your account has been created. Check you email for an activation link.')
+                _('Your account has been created. Check your email (including spam/junk folder) for an activation link.')
             )
 
             return redirect('home')
