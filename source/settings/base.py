@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'django.forms',
+    'django_celery_beat',
     'debug_toolbar',
     'sorl.thumbnail',
     'compressor',

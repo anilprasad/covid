@@ -40,6 +40,21 @@ services:
     networks:
       - covid_webnet
 
+  celery-beat:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    image: *app
+    command: celery -A source beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - ../:/app
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
+    networks:
+      - covid_webnet
+
   redis:
     image: redis:5.0.4
     restart: always
