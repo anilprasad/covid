@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load i18n %}
 {% block content %}
 <main role="main" class="container">
 
@@ -11,6 +12,44 @@
             THIS IS NOT AN OFFICIAL GOVERNMENT WEBSITE AND IT IS NOT INTENDED TO OFFER HELP IN CASE
             OF EMERGENCY !
         </p>
+    </div>
+
+    <div class="row">
+        {% for report in reports %}
+            <div class="col-6 col-md-6 col-lg-4">
+                <div class="card mt-4 report-card">
+                    <div class="card-header text-center location-name">
+                        {{ report.country }}
+                        <div class="text-muted">
+                            {% blocktrans trimmed with location=report.location_name %}
+                            COVID-19 in {{location}}
+                            {% endblocktrans %}
+                        </div>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="confirmed">
+                            {{ report.confirmed }}
+                            <div class="text-muted">{% trans 'Confirmed' %}</div>
+                        </div>
+                        <div class="deaths float-left w-50 text-center">
+                            {{ report.deaths }}
+                            <div class="text-muted">{% trans 'Deaths' %}</div>
+                        </div>
+                        <div class="recovered float-right w-50 text-center">
+                            {{ report.recovered }}
+                            <div class="text-muted">{% trans 'Recovered' %}</div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <div class="last-update">Last update: {{ report.last_update }}</div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+        <div class="col-12">
+            There are no reports added yet.
+        </div>
+        {% endfor %}
     </div>
 
     <div class="card mt-4">

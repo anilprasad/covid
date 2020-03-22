@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+
+{% block meta_title %}
+{% blocktrans trimmed context 'Page title' with country=map.name %}
+    Coronavirus COVID-19 {{country}} Map
+{% endblocktrans %}
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-lg-2">
+            <div class="card">
+                <div class="card-header">
+                    {% trans 'Menu' %}
+                </div>
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-10">
+            Self map
+        </div>
+    </div>
+</div>
+{% endblock %}

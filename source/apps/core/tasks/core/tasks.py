@@ -6,6 +6,8 @@ from django.utils import log
 from source.apps.core import email
 from source.apps.core.logger import log
 
+from source.apps.core.models.reports.cssegis import ReportCsseGisModel
+
 
 @shared_task
 #def send_mail(request=None, user=None, template=None, data=None, to=None, subject=None, message=None):
@@ -37,3 +39,8 @@ def process_failure_signal(exception, traceback, sender, task_id,
                 'kwargs': kwargs
             }
         })
+
+
+@shared_task
+def cssegis_sync():
+    ReportCsseGisModel.sync()
