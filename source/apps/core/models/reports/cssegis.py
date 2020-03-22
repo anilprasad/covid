@@ -69,15 +69,16 @@ class ReportCsseGisModel(TimestampedModel):
         self.last_update = datetime.strptime(self.last_update, '%Y-%m-%dT%H:%M:%S').astimezone(tz=timezone.utc)
         super().save(args, kwargs)
 
-    def sync(self):
+    @staticmethod
+    def sync():
         """
         Synchronize
         """
-        result = self.remote.fetch()
+        result = ReportCsseGisModel.remote.fetch()
         line_count = 0
 
         for row in result:
-            instance, created = self.objects.get_or_create(
+            instance, created = ReportCsseGisModel.objects.get_or_create(
                 state=row['Province/State'],
                 country=row['Country/Region'],
                 location=Point(x=float(row['Longitude']), y=float(row['Latitude']))
