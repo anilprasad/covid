@@ -66,8 +66,9 @@ class ReportCsseGisModel(TimestampedModel):
             return self.country
 
     def save(self, *args, **kwargs):
-        self.last_update = datetime.strptime(self.last_update, '%Y-%m-%dT%H:%M:%S').astimezone(tz=timezone.utc)
-        super().save(args, kwargs)
+        if self.last_update:
+            self.last_update = datetime.strptime(self.last_update, '%Y-%m-%dT%H:%M:%S').astimezone(tz=timezone.utc)
+        super().save(*args, **kwargs)
 
     @staticmethod
     def sync():
