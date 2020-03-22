@@ -93,7 +93,7 @@
     $(function(){
 
         $('#filter-reports').on('keyup', function(){
-            let keyword = $(this).val();
+            let keyword = $(this).val().toLowerCase();
 
             $('.report-container').each(function(){
                 let location = $(this).data('location');
