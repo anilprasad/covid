@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.utils import timezone
 from django.db import models
 from django.contrib.gis.db.models import PointField
@@ -15,8 +15,10 @@ class ReportCsseGisManager(models.Manager):
         import requests
         from django.core.cache import cache
 
+        yesterday = datetime.now() - timedelta(days=1)
+
         source = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/' \
-                 'csse_covid_19_data/csse_covid_19_daily_reports/%s.csv' % datetime.now().date().strftime('%m-%d-%Y')
+                 'csse_covid_19_data/csse_covid_19_daily_reports/%s.csv' % yesterday.strftime('%m-%d-%Y')
 
         cached_data = cache.get('csse_covid')
 
