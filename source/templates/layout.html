@@ -40,6 +40,8 @@
 
     {% block content %}{% endblock %}
 
+    {% include "shared/footer.html" %}
+
     {% block pre_javascripts %}{% endblock %}
 
     <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
