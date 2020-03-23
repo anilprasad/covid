@@ -20,4 +20,4 @@ class ReportCsseGisAdmin(LeafletGeoAdminMixin, admin.ModelAdmin):
     list_display = ('country', 'state', 'confirmed', 'deaths', 'recovered', 'last_update', 'updated_at')
     search_fields = ('country', )
     ordering = ('country',)
-    readonly_fields = ('last_update', 'created_at', 'updated_at', )
+    readonly_fields = ('created_at', 'updated_at', )

@@ -7,18 +7,12 @@ var sass = require('gulp-sass'); // Compile Sass into CSS
 var minifyCSS = require('gulp-clean-css'); // Minify the CSS
 
 // Minification dependencies
-var minifyHTML = require('gulp-minify-html'); // Minify HTML
 var concat = require('gulp-concat'); // Join all JS files together to save space
 var stripDebug = require('gulp-strip-debug'); // Remove debugging stuffs
-//var uglify = require('gulp-uglify'); // Minify JavaScript
 var uglify = require("gulp-terser");
 var imagemin = require('gulp-imagemin'); // Minify images
 
 // Other dependencies
-var size = require('gulp-size'); // Get the size of the project
-var browserSync = require('browser-sync'); // Reload the browser on file changes
-var jshint = require('gulp-jshint'); // Debug JS files
-var stylish = require('jshint-stylish'); // More stylish debugging
 var copy = require('gulp-copy');
 var filesExist = require('files-exist');
 var replace = require('gulp-replace');
@@ -139,8 +133,8 @@ gulp.task('scripts', function(done) {
 });
 
 gulp.task('watch', function(done) {
-    gulp.watch('./source/static-dev/assets/frontend/js/**/*.js', gulp.series('scripts'))
-    gulp.watch('./source/static-dev/assets/frontend/scss/**/*.scss', gulp.series('styles'))
+    gulp.watch('./source/static-dev/assets/frontend/js/**/*.js', gulp.series('scripts'));
+    gulp.watch('./source/static-dev/assets/frontend/scss/**/*.scss', gulp.series('styles'));
     done();
 });
 
