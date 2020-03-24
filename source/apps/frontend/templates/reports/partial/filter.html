@@ -1,0 +1,18 @@
+{% load i18n %}
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input type="text" class="form-control" placeholder="{% trans 'Filter reports by country/state/region name' %}" id="filter-reports" />
+                <hr />
+                Check specific reports:
+                <a href="{% url 'reports_country' country='us' %}">US</a> &middot;
+                <a href="{% url 'reports_country' country='china' %}">China</a> &middot;
+                <a href="{% url 'reports_country' country='australia' %}">Australia</a> &middot;
+                <a href="{% url 'reports_country' country='canada' %}">Canada</a> &middot;
+                <a href="{% url 'reports_country' country='united-kingdom' %}">United Kingdom</a> or
+                <a href="{% url 'home' %}">Rest of the World</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -14,47 +14,11 @@
         </p>
     </div>
 
-    <div class="row mt-4">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <input type="text" class="form-control" placeholder="{% trans 'Search reports by country/state/region' %}" id="filter-reports" />
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include 'reports/partial/filter.html' %}
 
     <div class="row">
         {% for report in reports %}
-            <div class="col-12 col-md-6 col-lg-4 report-container" data-location="{{report.location_name}}">
-                <div class="card mt-4 report-card">
-                    <div class="card-header text-center location-name">
-                        {{ report.country }}
-                        <div class="text-muted">
-                            {% blocktrans trimmed with location=report.location_name %}
-                            COVID-19 in {{location}}
-                            {% endblocktrans %}
-                        </div>
-                    </div>
-                    <div class="card-body text-center">
-                        <div class="confirmed">
-                            {{ report.confirmed }}
-                            <div class="text-muted">{% trans 'Confirmed' %}</div>
-                        </div>
-                        <div class="deaths float-left w-50 text-center">
-                            {{ report.deaths }}
-                            <div class="text-muted">{% trans 'Deaths' %}</div>
-                        </div>
-                        <div class="recovered float-right w-50 text-center">
-                            {{ report.recovered }}
-                            <div class="text-muted">{% trans 'Recovered' %}</div>
-                        </div>
-                    </div>
-                    <div class="card-footer text-center">
-                        <div class="last-update">Last update: {{ report.last_update }}</div>
-                    </div>
-                </div>
-            </div>
+            {% include 'reports/partial/item.html' with item=report %}
         {% empty %}
         <div class="col-12">
             There are no reports added yet.
@@ -87,24 +51,4 @@
     </div>
 
 </main><!-- /.container -->
-{% endblock %}
-{% block javascripts %}
-<script type="text/javascript">
-    $(function(){
-
-        $('#filter-reports').on('keyup', function(){
-            let keyword = $(this).val().toLowerCase();
-
-            $('.report-container').each(function(){
-                let location = $(this).data('location');
-
-                if (location.toLowerCase().indexOf(keyword) === -1) {
-                    $(this).addClass('d-none');
-                } else {
-                    $(this).removeClass('d-none');
-                }
-            });
-        });
-    });
-</script>
 {% endblock %}

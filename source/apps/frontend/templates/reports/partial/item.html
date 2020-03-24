@@ -1,0 +1,30 @@
+{% load i18n %}
+<div class="col-12 col-md-6 col-lg-4 report-container" data-location="{{item.location_name}}">
+    <div class="card mt-4 report-card">
+        <div class="card-header text-center location-name">
+            {{ item.country }}
+            <div class="text-muted">
+                {% blocktrans trimmed with location=item.location_name %}
+                COVID-19 in {{location}}
+                {% endblocktrans %}
+            </div>
+        </div>
+        <div class="card-body text-center">
+            <div class="confirmed">
+                {{ item.confirmed }}
+                <div class="text-muted">{% trans 'Confirmed' %}</div>
+            </div>
+            <div class="deaths float-left w-50 text-center">
+                {{ item.deaths }}
+                <div class="text-muted">{% trans 'Deaths' %}</div>
+            </div>
+            <div class="recovered float-right w-50 text-center">
+                {{ item.recovered }}
+                <div class="text-muted">{% trans 'Recovered' %}</div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <div class="last-update">Last update: {{ item.last_update }}</div>
+        </div>
+    </div>
+</div>

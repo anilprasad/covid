@@ -17,7 +17,7 @@ class ReportCsseGisAdmin(LeafletGeoAdminMixin, admin.ModelAdmin):
     has_image.boolean = True
 
     map_width = '800px'
-    list_display = ('country', 'state', 'confirmed', 'deaths', 'recovered', 'last_update', 'updated_at')
-    search_fields = ('country', )
+    list_display = ('country', 'state', 'city', 'confirmed', 'deaths', 'recovered', 'last_update', 'updated_at')
+    search_fields = ('country', 'state', 'city')
     ordering = ('country',)
     readonly_fields = ('created_at', 'updated_at', )

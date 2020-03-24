@@ -28,7 +28,7 @@ class ReportCsseGisManager(models.Manager):
             req = requests.get(source)
             if req.status_code == 200:
                 csv_data = req.text
-                cache.set('csse_covid', csv_data, 3600 * 12)
+                cache.set('csse_covid', csv_data, 3600)
             else:
                 csv_data = None
 
@@ -48,6 +48,7 @@ class ReportCsseGisModel(TimestampedModel):
 
     state = models.CharField(max_length=32, null=True, blank=True, verbose_name=_('Province/State'))
     country = models.CharField(max_length=32, null=True, blank=True, verbose_name=_('Country/Region'))
+    city = models.CharField(max_length=32, null=True, blank=True, verbose_name=_('City'))
     last_update = models.DateTimeField(null=True, blank=True, verbose_name=_('Last Update'))
     confirmed = models.PositiveIntegerField(default=0, verbose_name=_('Confirmed'))
     deaths = models.PositiveIntegerField(default=0, verbose_name=_('Deaths'))
@@ -69,7 +70,7 @@ class ReportCsseGisModel(TimestampedModel):
 
     def save(self, *args, **kwargs):
         if self.last_update and type(self.last_update) == str:
-            self.last_update = datetime.strptime(self.last_update, '%Y-%m-%dT%H:%M:%S').astimezone(tz=timezone.utc)
+            self.last_update = datetime.strptime(self.last_update, '%Y-%m-%d %H:%M:%S').astimezone(tz=timezone.utc)
         super().save(*args, **kwargs)
 
     @staticmethod
@@ -82,12 +83,13 @@ class ReportCsseGisModel(TimestampedModel):
 
         for row in result:
             instance, created = ReportCsseGisModel.objects.get_or_create(
-                state=row['Province/State'],
-                country=row['Country/Region'],
-                location=Point(x=float(row['Longitude']), y=float(row['Latitude']))
+                state=row['Province_State'],
+                country=row['Country_Region'],
+                location=Point(x=float(row['Lat']), y=float(row['Long_']))
             )
 
-            instance.last_update = row['Last Update']
+            instance.city = row['Admin2']
+            instance.last_update = row['Last_Update']
             instance.confirmed = row['Confirmed']
             instance.deaths = row['Deaths']
             instance.recovered = row['Recovered']
@@ -98,5 +100,5 @@ class ReportCsseGisModel(TimestampedModel):
     class Meta:
         db_table = 'report_cssegis'
         verbose_name = 'CSSEGIS Report'
-        unique_together = ('country', 'location', )
-        ordering = ('country', 'state', )
+        unique_together = ('country', 'location', 'state', 'city', )
+        ordering = ('country', 'state', 'city', )

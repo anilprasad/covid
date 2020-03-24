@@ -20,6 +20,7 @@ urlpatterns += i18n_patterns(
         name='javascript-catalog'
     ),
     re_path(r'^', include('source.apps.frontend.urls.home')),
+    re_path(r'^reports/', include('source.apps.frontend.urls.reports')),
     re_path(r'^maps/', include('source.apps.frontend.urls.maps')),
     re_path(r'^account/', include('source.apps.frontend.urls.account')),
 )

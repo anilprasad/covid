@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+{% block content %}
+<main role="main" class="container">
+
+    <div class="starter-template card">
+        <h1>Coronavirus CoVid-19 Social Platform</h1>
+        <p class="lead">
+            Welcome to covid.social<br />
+            The aim of this platform is to try and help people in need during this awful pandemic.<br /><br />
+
+            THIS IS NOT AN OFFICIAL GOVERNMENT WEBSITE AND IT IS NOT INTENDED TO OFFER HELP IN CASE
+            OF EMERGENCY !
+        </p>
+    </div>
+
+    {% include 'reports/partial/filter.html' %}
+
+    <div class="row">
+        {% for report in reports %}
+            {% include 'reports/partial/item.html' with item=report %}
+        {% empty %}
+        <div class="col-12">
+            There are no reports added yet.
+        </div>
+        {% endfor %}
+    </div>
+
+    {% include 'reports/partial/paginator.html' with items=reports %}
+
+</main><!-- /.container -->
+{% endblock %}
